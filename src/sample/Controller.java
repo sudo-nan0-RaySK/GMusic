@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 
 import java.awt.*;
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Controller {
@@ -34,39 +35,40 @@ public class Controller {
 
         System.out.println(password);
 
-        LinkedList<AccountObject> list= (LinkedList<AccountObject>)ois.readObject();
+        HashMap<Integer,AccountObject> list= (HashMap<Integer,AccountObject>)ois.readObject();
 
-        for(int i=0; i<list.size(); i++)
+        if(list.keySet().contains(Integer.parseInt(String.valueOf(hashCode(username+password)))))
         {
-            if(list.get(i).getName().equals(username)&&list.get(i).getPass().equals(password))
-            {
-                try {
+            AccountObject resutAcc= list.get(hashCode(username+password));
+            File fl= new File("currentUser.bin");
+            FileOutputStream fos=new FileOutputStream(fl);
+            ObjectOutputStream oos= new ObjectOutputStream(fos);
 
-                    File fl = new File("currentUser.bin");
+            oos.writeObject(resutAcc);
 
-                    FileOutputStream fos = new FileOutputStream(fl);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+            Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("mainView.fxml"));
+            window.setTitle("Hello World");
+            window.setScene(new Scene(root));
+            window.show();
 
-                    oos.writeObject(list.get(i));
-
-                    Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("mainView.fxml"));
-                    window.setTitle("Hello World");
-                    window.setScene(new Scene(root));
-                    window.show();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-            else
-            {
-
-            }
+        }
+        else
+        {
+            System.err.println("UserName/Pass Invalid");
         }
 
 
+
+
+    }
+    public static int hashCode(String str)
+    {
+        int h = 0;
+
+        for (int i = 0; i < str.length(); i++)
+            h = (h * 31) + str.charAt(i);
+
+        return h;
     }
 }

@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class AccountGenerator {
@@ -18,19 +19,33 @@ public class AccountGenerator {
         ac3.getSongs().add(new MusicItem("WeDont",4.0f,"Charlie Puth","Pop"));
 
         ac1.getFriends().add(ac2);
+        ac2.getFriends().add(ac1);
         ac2.getFriends().add(ac3);
+        ac3.getFriends().add(ac2);
 
-
-        LinkedList<AccountObject> toStore= new LinkedList<>();
-        toStore.add(ac1);
-        toStore.add(ac2);
-        toStore.add(ac3);
+        HashMap<Integer,AccountObject> hashMap= new HashMap<>();
+        hashMap.put(hashCode(ac1.getName()+ac1.getPass()),ac1);
+        hashMap.put(hashCode(ac2.getName()+ac2.getPass()),ac2);
+        hashMap.put(hashCode(ac3.getName()+ac3.getPass()),ac3);
 
         File f= new File("Accounts.bin");
 
         FileOutputStream fos= new FileOutputStream(f);
         ObjectOutputStream oos= new ObjectOutputStream(fos);
 
-        oos.writeObject(toStore);
+        oos.writeObject(hashMap);
+
+
     }
+
+    public static int hashCode(String str)
+    {
+        int h = 0;
+
+        for (int i = 0; i < str.length(); i++)
+            h = (h * 31) + str.charAt(i);
+
+        return h;
+    }
+
 }

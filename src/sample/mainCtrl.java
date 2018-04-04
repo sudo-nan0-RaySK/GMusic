@@ -1,5 +1,6 @@
 package sample;
 
+import com.jfoenix.controls.JFXButton;
 import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,10 @@ public class mainCtrl implements Initializable{
     ObservableList<MusicItem> data = FXCollections.observableArrayList();
     MusicItem currentlyLoaded;
     MediaPlayer mediaPlayer;
+    boolean playing=false;
     ArrayList<Integer> arr = new ArrayList<>();
+    @FXML
+    JFXButton playBtn;
     @FXML
     TextField searchBar;
     @FXML
@@ -51,7 +55,7 @@ public class mainCtrl implements Initializable{
     @FXML
     ListView listView;
     @FXML
-    Button search;
+    Button searchBtn;
     @FXML
     Button pplBtn;
     @Override
@@ -189,32 +193,53 @@ public class mainCtrl implements Initializable{
         durationLabel.setText(String.valueOf(currentlyLoaded.getDuration()));
         artistLabel.setText(currentlyLoaded.getArtist());
         System.out.println(currentlyLoaded);
+
     }
 
     @FXML
     public void playSong()
     {
 
-        try{
+        if(playing==false){
 
-            if(currentlyLoaded==null) {
-                System.err.println("Select a song noob!");
-                return;
+            try{
+
+                if(currentlyLoaded==null) {
+                    System.err.println("Select a song noob!");
+                    return;
+                }
+                String bip = currentlyLoaded.getName()+".mp3";
+                Media hit = new Media(new File(bip).toURI().toString());
+                mediaPlayer = new MediaPlayer(hit);
+                playing=true;
+                playBtn.setText("||");
+                mediaPlayer.play();
+
+
+            }  catch(Exception e){
+                System.out.println(e);
             }
-            String bip = currentlyLoaded.getName()+".mp3";
-            Media hit = new Media(new File(bip).toURI().toString());
-            mediaPlayer = new MediaPlayer(hit);
-            mediaPlayer.play();
 
+           // mediaPlayer.stop();
 
-        }  catch(Exception e){
-            System.out.println(e);
         }
+        else
+        {
+            playing=false;
+            mediaPlayer.stop();
+            playBtn.setText("▶");
+        }
+
     }
+
     @FXML
-    public void stopSong()
+    public void loadSuggested(ActionEvent actionEvent)throws IOException
     {
-        mediaPlayer.stop();
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("sugSongs.fxml"));
+        window.setTitle("Hello World");
+        window.setScene(new Scene(root));
+        window.show();
     }
 
     public void preOrderTraversal(SplayNode sp)

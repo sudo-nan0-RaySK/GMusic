@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:controller="sample.suggestedSongsCtrl" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="574.0" style="-fx-background-color: #00B0FF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" >
+    <children>
+        <VBox layoutY="85.0" prefHeight="427.0" prefWidth="574.0">
+            <children>
+                <ListView fx:id="songList" prefHeight="430.0" prefWidth="574.0" />
+            </children>
+        </VBox>
+        <JFXButton fx:id="toHome" buttonType="RAISED" layoutX="14.0" layoutY="25.0" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #0277BD;" text="Home" onAction="#goToHome" />
+        <JFXButton fx:id="toClose" buttonType="RAISED" layoutX="460.0" layoutY="25.0" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #0277BD;" text="Close" onAction="#destroyScene" />
+        <JFXButton fx:id="addSelectBtn" buttonType="RAISED" layoutX="481.0" layoutY="499.0" minHeight="38.0" prefHeight="38.0" prefWidth="52.0" style="-fx-min-height: 40; -fx-min-width: 40; -fx-pref-height: 49; -fx-pref-width: 48; -fx-background-radius: 100em; -fx-background-color: #0277BD;" text="+">
+            <font>
+                <Font name="System Bold" size="23.0" />
+            </font>
+        </JFXButton>
+    </children>
+</AnchorPane>
