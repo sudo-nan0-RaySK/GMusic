@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane fx:controller="sample.frndListCtrl" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="611.0" style="-fx-background-color: #00B0FF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox layoutY="76.0" prefHeight="434.0" prefWidth="611.0">
+            <children>
+                <ListView fx:id="frndsList" prefHeight="433.0" prefWidth="611.0" />
+            </children>
+        </VBox>
+        <JFXButton buttonType="RAISED" fx:id="backToHome" layoutX="14.0" layoutY="24.0" prefHeight="39.0" prefWidth="123.0" style="-fx-background-color: #0277BD;" text="Back to Home" textFill="WHITE" onAction="#loadHome" />
+        <JFXButton buttonType="RAISED" layoutX="511.0" layoutY="24.0" prefHeight="39.0" prefWidth="86.0" style="-fx-background-color: #0277BD;" text="Close" textFill="WHITE" />
+        <Label layoutX="233.0" layoutY="24.0" prefHeight="39.0" prefWidth="180.0" style="-fx-font-family: Roberto;" text="               Friends" textFill="WHITE"/>
+    </children>
+</AnchorPane>
