@@ -185,6 +185,15 @@ class SplayNode implements Serializable
     {
         return findNode(val) ;
     }
+
+    public boolean contains(int element)
+    {
+        if(this.findNode(element)==null)
+        {
+            return false;
+        }
+        return true;
+    }
     private SplayNode findNode(int ele)
     {
         SplayNode z = root;

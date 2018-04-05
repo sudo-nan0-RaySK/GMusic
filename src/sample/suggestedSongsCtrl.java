@@ -82,6 +82,8 @@ public class suggestedSongsCtrl implements Initializable {
 
 
             }
+            fis.close();
+            ois.close();
             songList.getItems().addAll(data);
         }
         catch(Exception e)
@@ -106,6 +108,36 @@ public class suggestedSongsCtrl implements Initializable {
         window.setScene(new Scene(root));
         window.show();
     }
+
+    @FXML
+    public void addToJukeBox()
+    {
+        try
+        {
+
+            File fl = new File("currentUser.bin");
+            FileInputStream fis= new FileInputStream(fl);
+            ObjectInputStream ois= new ObjectInputStream(fis);
+
+            AccountObject currentPlayer= (AccountObject)ois.readObject();
+            currentPlayer.getSongs().add((MusicItem)songList.getItems().get(songList.getSelectionModel().getSelectedIndex()));
+            songList.getItems().remove(songList.getSelectionModel().getSelectedIndex());
+            ois.close();
+            fis.close();
+
+            FileOutputStream fos= new FileOutputStream(fl);
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+
+            oos.writeObject(currentPlayer);
+
+        }
+        catch (Exception e)
+        {
+
+        }
+
+    }
+
     //Search utility
     public boolean has(LinkedList<MusicItem> l,MusicItem m)
     {

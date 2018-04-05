@@ -11,10 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -140,25 +138,35 @@ public class mainCtrl implements Initializable{
 
             SplayTree spt= store.getSplayTree();
 
+
             HashMap<Integer,MusicItem> hmp= store.getHashMap();
 
+            if(hmp.keySet().contains(hashCode(query))) {
             SplayNode node= spt.search(hashCode(query));
+            System.out.println(spt.contains(hashCode(query)));
+            searchBar.setText("");
 
-            System.out.println(hmp.get(node.element));
-            arr.clear();
-            preOrderTraversal(spt.root);
-            listView.getItems().clear();
+                System.out.println(hmp.get(node.element));
+                arr.clear();
+                preOrderTraversal(spt.root);
+                listView.getItems().clear();
 
-            for(int i=0; i<arr.size(); i++)
-            {
-                System.out.println(arr.get(i));
+                for (int i = 0; i < arr.size(); i++) {
+                    System.out.println(arr.get(i));
+                }
+
+                for (int i = 0; i < arr.size(); i++) {
+                    data.add(hmp.get(arr.get(i)));
+                }
             }
-
-            for(int i=0; i<arr.size(); i++)
+            else
             {
-                data.add(hmp.get(arr.get(i)));
+                searchBar.setText("");
+                System.err.println("Invalid Song query");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No Songs found !", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.show();
             }
-
         }
         catch(Exception e)
         {

@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
@@ -46,6 +46,8 @@ public class Controller {
 
             oos.writeObject(resutAcc);
 
+            System.out.println("Login Code: "+hashCode(username+password));
+
             Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("mainView.fxml"));
             window.setTitle("Hello World");
@@ -56,11 +58,20 @@ public class Controller {
         else
         {
             System.err.println("UserName/Pass Invalid");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "UserName/Pass Invalid", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
         }
 
-
-
-
+    }
+    @FXML
+    public void addNewUser(ActionEvent actionEvent)throws IOException
+    {
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("newUser.fxml"));
+        window.setTitle("Hello World");
+        window.setScene(new Scene(root));
+        window.show();
     }
     public static int hashCode(String str)
     {
